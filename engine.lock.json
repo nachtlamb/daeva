@@ -1,0 +1,108 @@
+{
+  "engine": {
+    "name": "winecx-gptk",
+    "tag": "runtime-v4.7.3",
+    "wine": "11.17",
+    "winecx_commit": "e0aa380780b73e20fabcfe78fd42713b94929a53",
+    "url": "https://github.com/dappermint/winecx-gptk/releases/download/runtime-v4.7.3/Libraries.tar.gz",
+    "sha256": "a4b5d63493f80698cce5cad8e7212d9a51c8292037b00c478f4652636fcfd331",
+    "min_macos": "26.0"
+  },
+  "steamclient_patch": {
+    "repo": "https://github.com/nachtlamb/winecx",
+    "branch": "daeva/steamclient-trampolines",
+    "commit": "80185c0623112409b7e921b7580b4879b67256f0",
+    "base": "e0aa380780b73e20fabcfe78fd42713b94929a53",
+    "artifact_sha256": "5ca5948dc6cce78a4ba9acd37cc4050d35310cb16238f61d95cb141595f12f77",
+    "ci_run": "https://github.com/nachtlamb/winecx-gptk/actions/runs/39538097139",
+    "runtime_version": "4.7.903",
+    "gptk_repo": "https://github.com/nachtlamb/winecx-gptk",
+    "gptk_commit": "e120d1dbef4bbe3f9a6657e9098f66ca91b75dad"
+  },
+  "notproton": {
+    "release_zip": "v1.2.0",
+    "release_zip_sha256": "c077473daae9a049a51dd039a2908c7c061f630d58628a74ac4e8a9f6e5b2e09",
+    "dylib_sha256": "b747ecf7d6978b92d6adb0770d5c67d1c6289ee2d4d2bef7933bc44fd9272dfc"
+  },
+  "bridge_engine": {
+    "name": "winecx-gptk",
+    "tag": "4.7.903-daeva",
+    "wine": "11.17",
+    "base_tag": "runtime-v4.7.3",
+    "winecx_commit": "e0aa380780b73e20fabcfe78fd42713b94929a53",
+    "patch_commit": "80185c0623112409b7e921b7580b4879b67256f0",
+    "ci_run": "https://github.com/nachtlamb/winecx-gptk/actions/runs/39538097139",
+    "sha256": "5ca5948dc6cce78a4ba9acd37cc4050d35310cb16238f61d95cb141595f12f77",
+    "ntdll_x86_64_sha256": "6af63b60b60d1d3b7e04f5bbf4942c8c578cb815f73f1785861ce98b03dd09ee",
+    "min_macos": "26.0"
+  },
+  "gptk": {
+    "dmg": "Game_Porting_Toolkit_4.0_beta_3.dmg",
+    "dmg_sha256": "32ce206597e392267574a6c423ef80b9eab8b3c710d8957f011d2b106393b87b",
+    "eval_dmg_sha256": "9550b8e5c304aab7e0f16ff92b50abc90070846239df52d98409da7d0f40a7b0",
+    "modules": [
+      "d3d10",
+      "d3d11",
+      "d3d12",
+      "d3d12core",
+      "dxgi"
+    ],
+    "files": {
+      "wine/x86_64-windows/d3d10.dll": "8509cd61f4e25e20fa6c4444b3dea062f026d672f441e82402702fa1faf6676b",
+      "wine/x86_64-windows/d3d11.dll": "a5de9738b3f89f1d8cdfb9103e82f9231ae543ce3c46134ed761c146a2f2d3e1",
+      "wine/x86_64-windows/d3d12.dll": "02aa673497ff8694b41f976e194a920468e54897f3546ed1cd4c1b3a97179735",
+      "wine/x86_64-windows/d3d12core.dll": "1034f5989c8c69496add15f79c04e56ae47cdf2a861098e8b4323bc8835b9e29",
+      "wine/x86_64-windows/dxgi.dll": "124015390b8527033bcd6e65af6376fde8fb3923450b63a9dbe0bbef05e63f10",
+      "external/libd3dshared.dylib": "e985a9e0b9807856018ee63ac40de3b3baaca7c33568f672d80d89934fbc41f1",
+      "external/D3DMetal.framework/D3DMetal": "b16aab78127dcf6dbbaba4cfaf8120b96c90ee7b31a48be8599847932a4931e1"
+    }
+  },
+  "bridge_files": {
+    "steamclient.dll": "e9e961c914a418b6a3c597822bdc920bdea62c842ff42de23dc306331da563f8",
+    "steamclient64.dll": "caba4826aa3501039d095aee1843a6bfb270fb43a3ab4455b2d6733223579fee",
+    "tier0_s64.dll": "30f7bb8d9b86006852493c26124ba253bd9e7ffd40a8b3c7254f86a9032c3be3",
+    "vstdlib_s64.dll": "99efb4c2ad47f90c803b5ee0bd6424916b28facb9fa2568845b1b1f58a36062a",
+    "steam.exe": "58413caf03cd8d39a7b387f573f2ba921a6d438c2fac2332e43bc195827af5c4"
+  },
+  "game": {
+    "appid": "3393110",
+    "buildid": "25926599",
+    "steam_api64_sha256": "4df999c0c8cb12589f0864d52be5d4c775577aeb27fee28b49b188f9ba083eea",
+    "steam_api64_path": "Engine/Binaries/ThirdParty/Steamworks/Steamv153/Win64/steam_api64.dll"
+  },
+  "valve": {
+    "bases": [
+      "https://client-update.akamai.steamstatic.com",
+      "https://steamcdn-a.akamaihd.net/client",
+      "https://media.steampowered.com/client"
+    ],
+    "packages": {
+      "linux": [
+        "bins_misc_ubuntu12.zip.3f92810725ee673827371a0470cd4f8c7ea8cfae",
+        "026b984726c728bbf81ae3ba16623bcd96e2bf837a859c235acf0ee279d940fd"
+      ],
+      "win64": [
+        "bins_win64.zip.36f5d9202e79ab2aa3e3c5902e84bbd799d31fc0",
+        "93f5b6bea0267fd85dc8cc823fdab5c5fb55d7f3a1deab0598acefef0e133bce"
+      ]
+    },
+    "files": {
+      "steamclient.dll": [
+        "linux",
+        "legacycompat/steamclient.dll"
+      ],
+      "steamclient64.dll": [
+        "linux",
+        "steamclient64.dll"
+      ],
+      "tier0_s64.dll": [
+        "win64",
+        "tier0_s64.dll"
+      ],
+      "vstdlib_s64.dll": [
+        "win64",
+        "vstdlib_s64.dll"
+      ]
+    }
+  }
+}

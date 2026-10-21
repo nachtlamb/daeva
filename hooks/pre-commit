@@ -1,0 +1,8 @@
+#!/bin/sh
+# reject anything that could redistribute D3DMetal/GPTK, engine builds or binaries
+bad=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '(\.(dll|so|dylib|exe|dmg)$|\.framework(/|$)|(^|/)(engine|gptk)/)')
+if [ -n "$bad" ]; then
+	echo "pre-commit: refusing to commit binaries/engine/gptk files:" >&2
+	echo "$bad" | sed 's/^/  /' >&2
+	exit 1
+fi

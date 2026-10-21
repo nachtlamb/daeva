@@ -1,0 +1,9 @@
+#!/bin/sh
+# daeva compat tool: Steam hands us the launch here. we record it (Steam* env and argv,
+# 0600) and hand off to daeva-engine, which decides whether to launch or stop at capture.
+verb="$1"
+case "$verb" in
+  getcompatpath) printf '%s\n' "$STEAM_COMPAT_DATA_PATH"; exit 0 ;;
+esac
+shift
+exec "@PYTHON@" -I "@REPO@/bin/daeva-engine" steam-run "$verb" -- "$@"

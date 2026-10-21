@@ -1,0 +1,73 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  # engine tarball + steam.exe live on this release
+  PAYLOAD_TAG: payload-4.7.903-daeva
+  COMPAT_REPO: https://github.com/Yuki-fox/aion2-wine-compat
+  COMPAT_SHA: 7ecbdef829bd619b7ef3f95db8ed5c2287d4b799
+
+jobs:
+  dmg:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Backend compiles
+        run: python3 -m compileall -q daeva_engine
+
+      - name: Fetch payload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download "$PAYLOAD_TAG" -p engine.tar.gz -p steam.exe -D "$RUNNER_TEMP/payload"
+
+      - name: Build aion2-wine-compat from source
+        run: |
+          git clone --quiet "$COMPAT_REPO" "$RUNNER_TEMP/compat"
+          git -C "$RUNNER_TEMP/compat" checkout --quiet "$COMPAT_SHA"
+          make -C "$RUNNER_TEMP/compat" all test
+
+      - name: Version
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="$(cat VERSION)"
+          release=false
+          if [ "$GITHUB_REF" = refs/heads/main ] && [ "$GITHUB_EVENT_NAME" != pull_request ] \
+             && ! gh release view "v$v" >/dev/null 2>&1; then
+            release=true
+          else
+            v="$v-dev.${GITHUB_SHA::7}"
+          fi
+          echo "DAEVA_VERSION=$v" >> "$GITHUB_ENV"
+          echo "RELEASE=$release" >> "$GITHUB_ENV"
+
+      - name: Build Daeva.app and DMG
+        env:
+          ENGINE_TARBALL: ${{ runner.temp }}/payload/engine.tar.gz
+          STEAM_EXE: ${{ runner.temp }}/payload/steam.exe
+          CPUID_DYLIB: ${{ runner.temp }}/compat/build/compat_cpuid.dylib
+        run: scripts/build-app.sh --dmg
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: Daeva-${{ env.DAEVA_VERSION }}
+          path: build/Daeva-*.dmg
+          compression-level: 0
+          retention-days: 14
+
+      - name: Release
+        if: env.RELEASE == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v$DAEVA_VERSION" build/Daeva-*.dmg --target "$GITHUB_SHA" \
+            --title "Daeva $DAEVA_VERSION" --generate-notes --latest

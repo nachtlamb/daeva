@@ -1,0 +1,20 @@
+Daeva.app includes the following third-party components.
+
+Wine (winecx-gptk 4.7.903-daeva)
+  LGPL-2.1-or-later
+  Source: https://github.com/nachtlamb/winecx (branch daeva/steamclient-trampolines)
+          https://github.com/nachtlamb/winecx-gptk (branch daeva/v4.7.3-steamclient)
+
+steam.exe, a port of Proton's steam_helper from NotProton
+  BSD-3-Clause, see steam-shim-BSD-3.txt
+  Source: https://github.com/NotProtonNot/NotProton
+
+compat_cpuid.dylib (aion2-wine-compat, commit 7ecbdef)
+  MIT, see aion2-wine-compat-MIT.txt
+  Source: https://github.com/Yuki-fox/aion2-wine-compat
+
+Python 3.13 (python-build-standalone 20261003)
+  PSF-2.0, see python/lib/python3.13/LICENSE.txt in the app bundle
+
+D3DMetal, Valve's Steam client libraries and NotProton's Steam Play dylib are not
+included. They are fetched or imported on the user's machine during setup.
